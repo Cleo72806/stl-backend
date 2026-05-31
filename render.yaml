@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: stl-dashboard-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+      # Set these in Render dashboard → Environment:
+      # CORRECT_PASSWORD   → your login password
+      # UPLOAD_PASSWORD    → your admin/upload password
+      # GDRIVE_FOLDER_ID   → Google Drive folder ID
+      # GOOGLE_SA_JSON     → full contents of service-account.json
+      # ALLOWED_ORIGINS    → https://your-app.vercel.app,http://localhost:5173
+    healthCheckPath: /health
