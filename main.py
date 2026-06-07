@@ -41,16 +41,11 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="STL Dashboard API", lifespan=lifespan)
 
-# ── CORS — allow your Vercel domain + localhost for dev
-ALLOWED_ORIGINS = os.getenv(
-    "ALLOWED_ORIGINS",
-    "http://localhost:5173,http://localhost:3000"
-).split(",")
-
+# ── CORS — allow all origins so any Vercel URL works without config changes
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
